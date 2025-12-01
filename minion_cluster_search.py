@@ -127,14 +127,6 @@ import pandas as pd
 from pathlib import Path
 import logging
 import argparse
-# local_functions_path = ".../minion_cluster_search/scripts"
-
-# Add the folder containing the specific functions to the Python path
-# sys.path.append(local_functions_path)
-# from batch_align_augur import run_alignment
-# import process_bam_data
-# from fasta_mutation_selector import run_mutation_selector 
-# from denovo_clustering_pipeline import ClusteringPipeline
 
 from utils.batch_align_augur import run_alignment
 from pipelines import process_bam_data
