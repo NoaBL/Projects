@@ -1059,6 +1059,52 @@ def convert_feature_scale(
 
     return feature_name
 
+def parse_change_direction(media_2wk, media_reserv, media_2wk_clean, media_reserv_clean):
+
+    # Numeric comparison available
+    if pd.notna(media_2wk_clean) and pd.notna(media_reserv_clean):
+
+        if media_reserv_clean > media_2wk_clean:
+            return 1
+
+        if media_reserv_clean < media_2wk_clean:
+            return -1
+
+        return 0
+
+    # Text comparison
+    text = str(media_reserv).strip().lower()
+
+    more_terms = [
+        "יותר",
+        "קצת יותר",
+        "הרבה יותר",
+        "ראיתי הרבה יותר והתעדכנתי"
+    ]
+
+    less_terms = [
+        "פחות",
+        "קצת פחות",
+        "הרבה פחות"
+    ]
+
+    same_terms = [
+        "גם ככה",
+        "אותו דבר",
+        "ללא שינוי",
+        "כרגיל"
+    ]
+
+    if any(term in text for term in more_terms):
+        return 1
+
+    if any(term in text for term in less_terms):
+        return -1
+
+    if any(term in text for term in same_terms):
+        return 0
+
+    return np.nan
 
 # Function: Reverse feature scale
 def reverse_scale(
